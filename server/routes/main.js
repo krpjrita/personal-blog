@@ -8,39 +8,36 @@ const router = express.Router();
  * HOME
  */
 router.get('/', async (req, res) => {
+    try {
 
         const locals = {
             title: "Notebook",
             description: "Notebook Blog",
         }
 
-        try {
-            const data = await Post.find();
-            res.render('index', { locals, data });
-        } catch (error) {
-            console.log(error);
-        }
+        let perPage = 10;
+        let page = req.query.page || 1;
+
+        const data = await Post.aggregate([{ $sort: { createdAt: -1 } }])
+        .skip(perPage * page - perPage)
+        .limit(perPage)
+        .exec();
+        
+        const count = await Post.countDocuments();
+        const nextPage = parseInt(page) + 1;
+        const hasNextPage = nextPage <= Math.ceil(count / perPage);
+
+        res.render('index', {
+            data,
+            current: page,
+            nextPage: hasNextPage ? nextPage : null,
+            currentRoute: "/"
+        });
+
+    } catch (error) {
+        console.log(error);
+    }
 });
-
-function insertPostData() {
-    Post.insertMany([
-        {
-            title: 'Building a Blog',
-            body: 'This is the body text'
-        },
-        {
-            title: 'LaLaLa',
-            body: 'Body Body'
-        },
-        {
-            title: 'Trititi',
-            body: 'blablabla'
-        },
-    ])
-}
-
-insertPostData();
-
 
 router.get('/about', (req, res) => {
     res.render("about");
