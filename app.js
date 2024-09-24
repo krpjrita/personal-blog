@@ -1,6 +1,7 @@
 import "dotenv/config";
 import express from "express";
 import expressEjsLayouts from "express-ejs-layouts";
+import methodOverride from "method-override";
 import router from "./server/routes/main.js";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -21,6 +22,8 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 
 app.use(cookieParser());
+
+app.use(methodOverride("_method"));
 
 app.use(session({
     secret: 'secret',

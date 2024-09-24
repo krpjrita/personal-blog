@@ -1,0 +1,19 @@
+<form action="/edit-post/<%= data._id %>?_method=PUT" class="edit-post" method="POST">
+
+    <input type="text" class="post-title" placeholder="Title" name="title" value="<%= data.title %>">
+
+    <textarea class="post-text" placeholder="What do you want to share?" name="body" cols="50" rows="10" > <%= data.body %> </textarea>
+    
+    <input class="edit-post-btn" type="submit" value="Update">
+
+</form>
+
+<form action="/delete-post/<%= data._id %>?_method=DELETE" class="delete-post" method="POST">
+
+    <input type="text" placeholder="Title" name="title" class="post-title">
+
+    <textarea placeholder="What do you want to share?" name="body" cols="50" rows="10" class="post-text"></textarea>
+    
+    <input type="submit" value="Publish" class="publish-post-btn">
+
+</form>

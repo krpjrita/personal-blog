@@ -39,6 +39,39 @@ router.get('/', async (req, res) => {
     }
 });
 
+/*
+
+SIMPLE
+
+router.get('', async (req, res) => {
+    try {
+        const data = await Post.find();
+        res.render('index', data);
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+*/
+
+
+/**
+ * GET
+ * About
+ */
+router.get("/about", (req, res) => {
+    res.render("about", { currentRoute: "/about" });
+})
+
+
+/**
+ * GET
+ * About
+ */
+router.get("/contact", (req, res) => {
+    res.render("contact", { currentRoute: "/contact" });
+})
+
 
 /**
  * GET
@@ -46,7 +79,6 @@ router.get('/', async (req, res) => {
  */
 router.get('/post/:id', async (req, res) => {
     try {
-
         let slug = req.params.id;
 
         const data = await Post.findById({ _id: slug });
@@ -93,12 +125,47 @@ router.post('/search', async (req, res) => {
 });
 
 
-router.get('/about', (req, res) => {
-    res.render("about");
-});
+/**
+ * POST
+ * Post :id
+ */
+router.get("/create-post", (req, res) => {
+    res.render("create-post.ejs");
+})
 
-router.get('/contact', (req, res) => {
-    res.render("contact");
-});
+/**
+ * UPDATE
+ * Post :id
+ */
+router.get("/edit-post", (req, res) => {
+    res.render("edit-post.ejs");
+})
+
 
 export default router;
+
+
+/*
+
+DUMMY DATA
+
+function insertPostData() {
+    Post.insertMany([
+        {
+            title: 'Building a Blog',
+            body: 'This is the body text'
+        },
+        {
+            title: 'LaLaLa',
+            body: 'Body Body'
+        },
+        {
+            title: 'Trititi',
+            body: 'blablabla'
+        },
+    ])
+}
+
+insertPostData();
+
+*/
