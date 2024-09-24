@@ -12,7 +12,7 @@ router.get('/', async (req, res) => {
 
         const locals = {
             title: "Notebook",
-            description: "Notebook Blog",
+            description: "Simple blog created with NodeJS, ExpressJS and MongoDB.",
         }
 
         let perPage = 10;
@@ -38,6 +38,31 @@ router.get('/', async (req, res) => {
         console.log(error);
     }
 });
+
+
+/**
+ * GET
+ * Post :id
+ */
+router.get('/post/:id', async (req, res) => {
+    try {
+
+        let slug = req.params.id;
+
+        const data = await Post.findById({ _id: slug });
+
+        const locals = {
+            title: data.title,
+            description: "Post description to insert in DB"
+        }
+
+        res.render('post', { locals, data, currentRoute: `/post/${slug}` });
+
+    } catch (error) {
+        console.log(error);
+    }
+});
+
 
 router.get('/about', (req, res) => {
     res.render("about");
