@@ -4,11 +4,15 @@ import expressEjsLayouts from "express-ejs-layouts";
 import router from "./server/routes/main.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import connectDB from "./server/config/db.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
 const PORT = 5000 || process.env.PORT;
+
+// Connect to DB
+connectDB();
 
 app.use(express.static(__dirname + '/public'));
 
