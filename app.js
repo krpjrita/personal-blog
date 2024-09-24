@@ -9,6 +9,7 @@ import connectDB from "./server/config/db.js";
 import cookieParser from "cookie-parser";
 import MongoStore from "connect-mongo";
 import session from "express-session";
+import isActiveRoute from "./server/helpers/routeHelpers.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
@@ -41,6 +42,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(expressEjsLayouts);
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
+
+app.locals.isActiveRoute = isActiveRoute;
 
 app.use('/', router);
 
