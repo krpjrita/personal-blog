@@ -1,0 +1,22 @@
+<div class="search">
+    <h1 class="search-heading">Search Results</h1>
+</div>
+
+<section class="posts">
+
+    <ul class="post-ul">
+
+        <% data.forEach(post => { %>
+         
+            <li>
+                <a href="/post/<%= post._id %>">
+                    <span class="post-title"><%= post.title %></span>
+                    <span class="post-list-date"><%= post.createdAt.toDateString() %></span>
+                </a>
+            </li>
+
+        <% }) %>
+
+    </ul>
+
+</section>
