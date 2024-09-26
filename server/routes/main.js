@@ -7,12 +7,12 @@ const router = express.Router();
  * GET
  * HOME
  */
-router.get('/', async (req, res) => {
+router.get("/", async (req, res) => {
     try {
 
         const locals = {
             title: "Notebook",
-            description: "Simple blog created with NodeJS, ExpressJS and MongoDB.",
+            description: "Simple blog created with NodeJS, Express and MongoDB.",
         }
 
         let perPage = 10;
@@ -27,7 +27,7 @@ router.get('/', async (req, res) => {
         const nextPage = parseInt(page) + 1;
         const hasNextPage = nextPage <= Math.ceil(count / perPage);
 
-        res.render('index', {
+        res.render("index", {
             data,
             current: page,
             nextPage: hasNextPage ? nextPage : null,
@@ -60,7 +60,18 @@ router.get('', async (req, res) => {
  * About
  */
 router.get("/about", (req, res) => {
-    res.render("about", { currentRoute: "/about" });
+    try {
+
+        const locals = {
+            title: "About Me",
+            description: "About the creator of this blog.",
+        }
+
+        res.render("about", { locals, currentRoute: "/about" });
+
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 
@@ -69,7 +80,18 @@ router.get("/about", (req, res) => {
  * About
  */
 router.get("/contact", (req, res) => {
-    res.render("contact", { currentRoute: "/contact" });
+    try {
+
+        const locals = {
+            title: "Contact Me",
+            description: "Contact the creator of this blog.",
+        }
+
+        res.render("contact", { locals, currentRoute: "/contact" });
+
+    } catch (error) {
+        console.log(error);
+    }
 })
 
 
@@ -77,7 +99,7 @@ router.get("/contact", (req, res) => {
  * GET
  * Post :id
  */
-router.get('/post/:id', async (req, res) => {
+router.get("/post/:id", async (req, res) => {
     try {
         let slug = req.params.id;
 
@@ -88,7 +110,7 @@ router.get('/post/:id', async (req, res) => {
             description: "Post description to insert in DB"
         }
 
-        res.render('post', { locals, data, currentRoute: `/post/${slug}` });
+        res.render("post", { locals, data, currentRoute: `/post/${slug}` });
 
     } catch (error) {
         console.log(error);
@@ -100,7 +122,7 @@ router.get('/post/:id', async (req, res) => {
  * POST
  * Post - searchTerm
  */
-router.post('/search', async (req, res) => {
+router.post("/search", async (req, res) => {
     try {
         const locals = {
             title: "Search",
@@ -112,12 +134,12 @@ router.post('/search', async (req, res) => {
 
         const data = await Post.find({
             $or: [
-                { title: { $regex: new RegExp(searchNoSpecialChar, 'i') }},
-                { body: { $regex: new RegExp(searchNoSpecialChar, 'i') }}
+                { title: { $regex: new RegExp(searchNoSpecialChar, "i") }},
+                { body: { $regex: new RegExp(searchNoSpecialChar, "i") }}
             ]
         });
 
-        res.render('search', { locals, data, currentRoute: "/search" });
+        res.render("search", { locals, data, currentRoute: "/search" });
 
     } catch (error) {
         console.log(error);
@@ -152,16 +174,16 @@ DUMMY DATA
 function insertPostData() {
     Post.insertMany([
         {
-            title: 'Building a Blog',
-            body: 'This is the body text'
+            title: "Building a Blog",
+            body: "This is the body text"
         },
         {
-            title: 'LaLaLa',
-            body: 'Body Body'
+            title: "LaLaLa",
+            body: "Body Body"
         },
         {
-            title: 'Trititi',
-            body: 'blablabla'
+            title: "Trititi",
+            body: "blablabla"
         },
     ])
 }
