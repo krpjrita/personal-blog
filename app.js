@@ -2,7 +2,7 @@ import "dotenv/config";
 import express from "express";
 import expressEjsLayouts from "express-ejs-layouts";
 import methodOverride from "method-override";
-import router from "./server/routes/main.js";
+import allRoutes from "./server/routes/index.js";
 import path from "path";
 import { fileURLToPath } from "url";
 import connectDB from "./server/config/db.js";
@@ -14,16 +14,14 @@ import isActiveRoute from "./server/helpers/routeHelpers.js";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 const app = express();
-const PORT = 5000 || process.env.PORT;
+const PORT = process.env.PORT || 5000;
 
 // Connect to DB
 connectDB();
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-
 app.use(cookieParser());
-
 app.use(methodOverride("_method"));
 
 app.use(session({
@@ -43,9 +41,11 @@ app.use(expressEjsLayouts);
 app.set('layout', './layouts/main');
 app.set('view engine', 'ejs');
 
+
 app.locals.isActiveRoute = isActiveRoute;
 
-app.use('/', router);
+app.use('/', allRoutes);
+
 
 app.listen(PORT, () => {
     console.log(`App listening on port ${PORT}`);

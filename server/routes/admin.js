@@ -4,10 +4,10 @@ import User from "../model/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-const router = express.Router();
+const adminRouter = express.Router();
 
-const adminLayout = '../views/layouts/admin';
-const adminControlPostsLayout = "../views/layouts/admin-controls-posts"
+const adminLayout = "../views/layouts/admin";
+const adminControlPostsLayout = "../views/layouts/admin-controls-posts";
 const jwtSecret = process.env.JWT_SECRET;
 
 
@@ -16,7 +16,7 @@ const jwtSecret = process.env.JWT_SECRET;
  * Check Login
  */
 const authMiddleware = (req, res, next) => {
-    const token = req.cookie.token;
+    const token = req.cookies.token;
     
     if(!token) return res.status(401).json({ message: "Unauthorized" });
 
@@ -25,7 +25,7 @@ const authMiddleware = (req, res, next) => {
         req.userId = decoded.userId;
         next();
     } catch (error) {
-        res.status(401).json({ message: "Unauthorized" })
+        res.status(401).json({ message: "Unauthorized" });
     }
 }
 
@@ -34,14 +34,14 @@ const authMiddleware = (req, res, next) => {
  * GET
  * Admin - Login Page
  */
-router.get('/admin', async (req, res) => {
+adminRouter.get("/admin", async (req, res) => {
     try {
         const locals = {
             title: "Admin",
             description: "Admin Login Page"
         }
 
-        res.render('admin/login', { locals, layout: adminLayout });
+        res.render("admin/login", { locals, layout: adminLayout, currentRoute: "/admin" });
     } catch (error) {
         console.log(error);
     }
@@ -52,7 +52,7 @@ router.get('/admin', async (req, res) => {
  * POST
  * Admin - Check Login
  */
-router.post('/admin', async (req, res) => {
+adminRouter.post("/admin", async (req, res) => {
     try {
         const { username, password } = req.body;
 
@@ -69,7 +69,6 @@ router.post('/admin', async (req, res) => {
         
         res.redirect("/dashboard");
 
-        res.render('admin/login', { locals, layout: adminLayout });
     } catch (error) {
         console.log(error);
     }
@@ -79,7 +78,7 @@ router.post('/admin', async (req, res) => {
 
 SIMPLE
 
-router.post('/admin', async (req, res) => {
+adminRouter.post('/admin', async (req, res) => {
     try {
         const { username, password } = req.body;
         
@@ -93,17 +92,17 @@ router.post('/admin', async (req, res) => {
     }
 });
 
- */
+*/
 
 
 /**
  * POST
  * Admin - Register
  */
-router.post('/register', async (req, res) => {
+adminRouter.post('/register', async (req, res) => {
     try {
         const { username, password } = req.body;
-        const hashedPassword = await bycrypt.hash(password, 10);
+        const hashedPassword = await bcrypt.hash(password, 10);
 
         try {
             const user = await User.create ({ username, password: hashedPassword});
@@ -115,7 +114,6 @@ router.post('/register', async (req, res) => {
             res.status(500).json({ message: "Internal server error"});
         }
         
-        res.render('admin/login', { locals, layout: adminLayout });
     } catch (error) {
         console.log(error);
     }
@@ -126,7 +124,7 @@ router.post('/register', async (req, res) => {
  * GET
  * Admin Dashboard
  */
-router.get('/dashboard', authMiddleware, async (req, res) => {
+adminRouter.get('/dashboard', authMiddleware, async (req, res) => {
 
     try {
         const locals = {
@@ -136,7 +134,7 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
 
         const data = await Post.countDocuments();
 
-        res.render("admin/dashboard", { locals, data, layout: adminLayout });
+        res.render("/admin/dashboard", { locals, data, layout: adminLayout });
 
     } catch (error) {
         console.log(error);
@@ -148,7 +146,7 @@ router.get('/dashboard', authMiddleware, async (req, res) => {
  * GET
  * Admin - Create New Post
  */
-router.get('/create-post', authMiddleware, async (req, res) => {
+adminRouter.get('/create-post', authMiddleware, async (req, res) => {
 
     try {
         const locals = {
@@ -158,7 +156,7 @@ router.get('/create-post', authMiddleware, async (req, res) => {
 
         const data = await Post.countDocuments();
 
-        res.render("admin/create-post", { locals, layout: adminLayout });
+        res.render("/admin/create-post", { locals, layout: adminLayout });
 
     } catch (error) {
         console.log(error);
@@ -170,7 +168,7 @@ router.get('/create-post', authMiddleware, async (req, res) => {
  * POST
  * Admin - Create New Post
  */
-router.post('/create-post', authMiddleware, async (req, res) => {
+adminRouter.post('/create-post', authMiddleware, async (req, res) => {
 
     try {
         const newPost = new Post({
@@ -192,7 +190,7 @@ router.post('/create-post', authMiddleware, async (req, res) => {
  * GET
  * Admin - Edit Post
  */
-router.get('/edit-post/:id', authMiddleware, async (req, res) => {
+adminRouter.get('/edit-post/:id', authMiddleware, async (req, res) => {
 
     try {
 
@@ -215,7 +213,7 @@ router.get('/edit-post/:id', authMiddleware, async (req, res) => {
  * PUT
  * Admin - Edit Post
  */
-router.put('/edit-post/:id', authMiddleware, async (req, res) => {
+adminRouter.put('/edit-post/:id', authMiddleware, async (req, res) => {
 
     try {
         await Post.findByIdAndUpdate(req.params.id, {
@@ -236,7 +234,7 @@ router.put('/edit-post/:id', authMiddleware, async (req, res) => {
  * DELETE
  * Admin - Delete Post
  */
-router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
+adminRouter.delete('/delete-post/:id', authMiddleware, async (req, res) => {
 
     try {
         await Post.deleteOne({ _id: req.params.id });
@@ -252,7 +250,7 @@ router.delete('/delete-post/:id', authMiddleware, async (req, res) => {
  * Get
  * Admin Logout
  */
-router.get("/logout", (req, res) => {
+adminRouter.get("/logout", (req, res) => {
     try {
 
         res.clearCookie("token");
@@ -265,4 +263,4 @@ router.get("/logout", (req, res) => {
 })
 
 
-export default router;
+export default adminRouter;
