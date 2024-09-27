@@ -34,14 +34,14 @@ const authMiddleware = (req, res, next) => {
  * GET
  * Admin - Login Page
  */
-adminRouter.get("/admin", async (req, res) => {
+adminRouter.get("/user", async (req, res) => {
     try {
         const locals = {
-            title: "Admin",
-            description: "Admin Login Page"
+            title: "User",
+            description: "Login or Register Page."
         }
 
-        res.render("admin/login", { locals, layout: adminLayout, currentRoute: "/admin" });
+        res.render("admin/login", { locals, currentRoute: "/user" });
     } catch (error) {
         console.log(error);
     }
@@ -52,19 +52,23 @@ adminRouter.get("/admin", async (req, res) => {
  * POST
  * Admin - Check Login
  */
-adminRouter.post("/admin", async (req, res) => {
+adminRouter.post("/login", async (req, res) => {
     try {
         const { username, password } = req.body;
 
         const user = await User.findOne( { username } );
 
-        if (!user) return res.status(401).json({ message: "Invalid credentials." });
+        if (!user) {
+            return res.status(401).json({ message: "Invalid credentials." });
+        }
         
         const isPasswordValid = await bcrypt.compare(password, user.password);
 
-        if (!isPasswordValid) return res.status(401).json({ message: "Invalid credentials." });
+        if (!isPasswordValid) { 
+            return res.status(401).json({ message: "Invalid credentials." });
+        }
 
-        const token = jwt.sign({ userId: user._id, jwtSecret});
+        const token = jwt.sign({ userId: user._id }, jwtSecret);
         res.cookie("token", token, { httpOnly: true });
         
         res.redirect("/dashboard");
@@ -78,7 +82,7 @@ adminRouter.post("/admin", async (req, res) => {
 
 SIMPLE
 
-adminRouter.post('/admin', async (req, res) => {
+adminRouter.post('/login', async (req, res) => {
     try {
         const { username, password } = req.body;
         
@@ -132,9 +136,9 @@ adminRouter.get('/dashboard', authMiddleware, async (req, res) => {
             description: "Admin Dashboard"
         }
 
-        const data = await Post.countDocuments();
+        const data = await Post.find();
 
-        res.render("/admin/dashboard", { locals, data, layout: adminLayout });
+        res.render("admin/dashboard", { locals, data, layout: adminLayout, currentRoute: "/dashboard" });
 
     } catch (error) {
         console.log(error);
@@ -156,7 +160,7 @@ adminRouter.get('/create-post', authMiddleware, async (req, res) => {
 
         const data = await Post.countDocuments();
 
-        res.render("/admin/create-post", { locals, layout: adminLayout });
+        res.render("admin/create-post", { locals, layout: adminLayout });
 
     } catch (error) {
         console.log(error);
@@ -178,7 +182,7 @@ adminRouter.post('/create-post', authMiddleware, async (req, res) => {
 
         await Post.create(newPost);
 
-        res.redirect("/dashboard");
+        res.redirect("admin/dashboard");
 
     } catch (error) {
         console.log(error);
@@ -201,7 +205,7 @@ adminRouter.get('/edit-post/:id', authMiddleware, async (req, res) => {
 
         const data = await Post.findOne({ _id: req.params.id });
 
-        res.render("/admin/edit-post", { locals, data, layout: adminControlPostsLayout });
+        res.render("admin/edit-post", { locals, data, layout: adminControlPostsLayout });
 
     } catch (error) {
         console.log(error);
@@ -238,7 +242,7 @@ adminRouter.delete('/delete-post/:id', authMiddleware, async (req, res) => {
 
     try {
         await Post.deleteOne({ _id: req.params.id });
-        res.redirect("/dashboard");
+        res.redirect("admin/dashboard");
 
     } catch (error) {
         console.log(error);
