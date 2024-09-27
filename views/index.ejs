@@ -1,8 +1,7 @@
 <div class="posts">
-
     <ul class="post-list">
         <% data.forEach(post => { %>
-                                
+                                    
             <li>
                 <a href="/post/<%= post._id %>">
                     <span class="post-title"><%= post.title %></span>
@@ -16,5 +15,4 @@
     <% if (nextPage !== null) { %>
         <a href="/?page=<%= nextPage %>" class="pagination">&lt; View Older Posts</a>
     <% } %>
-
 </div>
