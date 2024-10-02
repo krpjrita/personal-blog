@@ -77,7 +77,7 @@ router.get("/about", (req, res) => {
 
 /**
  * GET
- * About
+ * Contact
  */
 router.get("/contact", (req, res) => {
     try {
@@ -101,13 +101,13 @@ router.get("/contact", (req, res) => {
  */
 router.get("/post/:id", async (req, res) => {
     try {
-        let slug = req.params.id;
 
+        let slug = req.params.id;
         const data = await Post.findById({ _id: slug });
 
         const locals = {
             title: data.title,
-            description: "Post description to insert in DB"
+            description: data.body
         }
 
         res.render("post", { locals, data, currentRoute: `/post/${slug}` });
@@ -145,23 +145,6 @@ router.post("/search", async (req, res) => {
         console.log(error);
     }
 });
-
-
-/**
- * POST
- * Post :id
- */
-router.get("/create-post", (req, res) => {
-    res.render("create-post.ejs");
-})
-
-/**
- * UPDATE
- * Post :id
- */
-router.get("/edit-post", (req, res) => {
-    res.render("edit-post.ejs");
-})
 
 
 export default router;
