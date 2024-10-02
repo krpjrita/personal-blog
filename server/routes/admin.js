@@ -7,7 +7,7 @@ import jwt from "jsonwebtoken";
 const adminRouter = express.Router();
 
 const adminLayout = "../views/layouts/admin";
-const adminControlPostsLayout = "../views/layouts/admin-controls-posts";
+const adminControlPostsLayout = "../views/layouts/admin-control-posts";
 const jwtSecret = process.env.JWT_SECRET;
 
 
@@ -148,6 +148,29 @@ adminRouter.get('/dashboard', authMiddleware, async (req, res) => {
 
 /**
  * GET
+ * Post :id
+ */
+adminRouter.get("/admin-post/:id", async (req, res) => {
+    try {
+
+        let slug = req.params.id;
+        const data = await Post.findById({ _id: slug });
+
+        const locals = {
+            title: data.title,
+            description: data.body
+        }
+
+        res.render("post", { locals, data, layout: adminControlPostsLayout, currentRoute: `/post/${slug}` });
+
+    } catch (error) {
+        console.log(error);
+    }
+});
+
+
+/**
+ * GET
  * Admin - Create New Post
  */
 adminRouter.get('/create-post', authMiddleware, async (req, res) => {
@@ -158,9 +181,9 @@ adminRouter.get('/create-post', authMiddleware, async (req, res) => {
             description: "Add New Post"
         }
 
-        const data = await Post.countDocuments();
+        const data = await Post.find();
 
-        res.render("admin/create-post", { locals, layout: adminLayout });
+        res.render("admin/create-post", { locals, data, layout: adminLayout, currentRoute: "/create-post" });
 
     } catch (error) {
         console.log(error);
@@ -182,7 +205,7 @@ adminRouter.post('/create-post', authMiddleware, async (req, res) => {
 
         await Post.create(newPost);
 
-        res.redirect("admin/dashboard");
+        res.redirect("dashboard");
 
     } catch (error) {
         console.log(error);
@@ -268,3 +291,19 @@ adminRouter.get("/logout", (req, res) => {
 
 
 export default adminRouter;
+
+
+/*
+
+GET Post:id
+router.get("/create-post", (req, res) => {
+    res.render("admin/create-post");
+})
+
+
+UPDATE Post:id
+router.get("/edit-post", (req, res) => {
+    res.render("admin/edit-post");
+})
+
+*/
