@@ -1,7 +1,12 @@
-<form action="/create-post" class="create-post" method="POST">
+<form action="/create-post" class="create-post-form" method="POST">
 
-    <input type="text" placeholder="Title" name="title" class="post-title">
-    <textarea placeholder="What do you want to share?" name="body" cols="50" rows="10" class="post-text"></textarea>
-    <input type="submit" value="Publish" class="publish-post-btn">
+    <input type="text" class="create-post-title" placeholder="Title" name="title">
+    <textarea class="create-post-text" placeholder="What do you want to share?" name="body" cols="50" rows="10"></textarea>
+
+    
+    <button type="submit" class="publish-post-btn" name="publish-post" value="Publish">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><defs><style>.cls-1,.cls-2{fill:none;}.cls-2{stroke:#000;stroke-linecap:round;stroke-linejoin:round;}</style></defs><g data-name="Layer 2" id="Layer_2"><g id="Workspace"><rect class="cls-1" height="24" width="24"/><polygon class="cls-2" points="19 5 5 11 9 13 14 18 19 5"/><line class="cls-2" x1="19" x2="9" y1="5" y2="13"/><polyline class="cls-2" points="9 13 9 17 11 15"/></g></g></svg>
+        <span class="publish-post-btn-text"> Publish </span>
+    </button>
 
 </form>

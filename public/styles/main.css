@@ -9,7 +9,7 @@
     --post-title-blue: #89bac9;
     --font-size-base: 1rem;
     --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
-    --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.11rem);
+    --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.50rem);
     --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
     --border-radius: 10px;
 }
@@ -47,12 +47,12 @@ select,
 textarea {
     font-family: "Abhaya Libre", system-ui;
     font-size: var(--font-size-md);
-    color: var(--post-title-blue);
     display: block;
     box-sizing: border-box;
     width: 100%;
     padding: 0.7rem 0.75rem;
     margin-bottom: 1rem;
+    resize: none;
 }
 
 /* Firefox */
@@ -343,6 +343,7 @@ svg {
 
 /* End of Header */
 
+
 /* Login */
 
 .login {
@@ -385,8 +386,7 @@ svg {
     height: 5rem;
     max-width: 50%;
     margin-left: 15rem;
-    border: 1px solid var(--light-blue);
-    color: var(--post-title-blue);   
+    border: 1px solid var(--light-blue); 
 }
 
 .btn {
@@ -425,7 +425,8 @@ svg {
 
 /* End of Login */
 
-/* Dashboard Admin */
+
+/* Dashboard */
 
 .admin-title {
     display: flex;
@@ -459,6 +460,67 @@ svg {
     padding: 10px 0;
   }
 
-/* End of Dashboard Admin */
+/* End of Dashboard */
+
+
+/* Create Post */
+
+.create-post-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 7rem 0 0 0;
+    padding-bottom: 4rem;
+}
+
+.create-post-title,
+.create-post-text {
+    height: 5rem;
+    max-width: 85%;
+    margin-left: 6rem;
+    border: 1px solid var(--gray);
+    background-color: var(--light-gray);
+}
+
+.create-post-text {
+    height: fit-content;
+}
+
+.publish-post-btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 15rem;
+    padding: 1rem;
+    margin-top: 2rem;
+    border: none;
+    background-color: var(--light-gray);
+    color: var(--post-title-blue);
+    font-family: "Abhaya Libre", system-ui;
+    font-size: var(--font-size-lg);
+    text-decoration: none;
+    cursor: pointer;
+    opacity: .4;
+    transition: .3s;
+}
+
+.publish-post-btn svg {
+    height: 35px;
+    width: 35px;
+    stroke-width: .5;
+}
+
+.publish-post-btn-text {
+    padding-left: .5rem;
+}
+
+.publish-post-btn:hover {
+    opacity: 1;
+    color: var(--light-red);
+}
+
+
+/* End of Create Post */
+
 
 /* End of ADMIN */
