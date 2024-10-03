@@ -74,6 +74,8 @@ img {
 /* End of Common Styles */
 
 
+/* PARTIALS */
+
 /* Header */
 
 .header-top:before {
@@ -221,7 +223,25 @@ svg {
 /* End of Header */
 
 
-/* Post List 📍 Homepage */
+/* Footer */
+
+.footer {
+    padding: 2rem;
+    background-color: var(--light-gray);
+    font-family: "Federo", system-ui;
+    font-size: 1.5rem;
+    letter-spacing: 0.3rem;
+    text-align: center;
+}
+
+/* End of Footer */
+
+/* END OF PARTIALS */
+
+
+/* BODIES */
+
+/* Homepage - Post List */
 
 .posts {
     display: flex;
@@ -297,10 +317,10 @@ svg {
     color: var(--post-title-blue);
 }
 
-/* End of Post List 📍 Homepage */
+/* Homepage - Post List */
 
 
-/* Post */
+/* Post Page */
 
 .read-post {
     display: flex;
@@ -361,24 +381,29 @@ svg {
     white-space: pre-wrap;
 }
 
-/* End of Post */
+/* End of Post Page */
 
 
-/* Footer */
+/* About Me */
 
-.footer {
-    padding: 2rem;
-    background-color: var(--light-gray);
-    font-family: "Federo", system-ui;
-    font-size: 1.5rem;
-    letter-spacing: 0.3rem;
-    text-align: center;
-}
 
-/* End of Footer */
+
+/* End of About Me */
+
+
+/* Contact */
+
+
+
+/* End of Contact */
+
+/* END OF BODIES */
+
 
 
 /* ADMIN */
+
+/* PARTIALS */
 
 /* Header */
 
@@ -412,6 +437,10 @@ svg {
 
 /* End of Header */
 
+/* END OF PARTIALS */
+
+
+/* BODIES */
 
 /* Login */
 
@@ -591,5 +620,6 @@ svg {
 
 /* End of Create Post */
 
+/* END OF BODIES */
 
-/* End of ADMIN */
+/* END OF ADMIN */
