@@ -1,3 +1,12 @@
-<h1> <%= data.title %> </h1>
+<div class="read-post">
 
-<article class="post"> <%= data.body %> </article>
+    <div class="read-post-header">
+        <h1 class="read-post-title"> <%= data.title %> </h1>
+        <h3 class="read-post-date"><%= data.createdAt.toDateString() %></h3>
+    </div>
+
+    <div class="read-post-body">
+        <article class="post-body"> <%= data.body %> </article>
+    </div>
+
+</div>

@@ -8,7 +8,7 @@
     --light-blue: #a1c6d2;
     --post-title-blue: #89bac9;
     --font-size-base: 1rem;
-    --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 1.58rem);
+    --font-size-md: clamp(1.25rem, 0.61vw + 1.1rem, 2rem);
     --font-size-lg: clamp(1.56rem, 1vw + 1.31rem, 2.50rem);
     --font-size-xl: clamp(2.44rem, 2.38vw + 1.85rem, 3.75rem);
     --border-radius: 10px;
@@ -146,7 +146,7 @@ img {
     width: 100%;
     height: 130%;
     margin-left: 15rem;
-    z-index: -1;
+    z-index: -2;
 }
 
 /* End of Notebook Red Line */
@@ -221,7 +221,7 @@ svg {
 /* End of Header */
 
 
-/* Posts */
+/* Post List 📍 Homepage */
 
 .posts {
     display: flex;
@@ -235,46 +235,55 @@ svg {
     display: flex;
     flex-direction: column;
     width: 100%;
-    padding-bottom: 0! important;
+    padding-bottom: 0 !important;
     border-top: 1px solid var(--light-blue);
     font-size: var(--font-size-lg);
 }
 
-.post-date {
-    font-size: var(--font-size-lg);
-    color: var(--post-title-blue);
+.post-title {
+    cursor: pointer;
+    transition: filter 0.5s;
+}
+
+.post-title:hover {
+    filter: none;
+}
+
+.post-list:hover .post-title {
+    filter: opacity(0.6);
+}
+
+.post-list:hover .post-title:hover {
+    filter: none;
 }
 
 .post-list li a {
     display: flex;
     align-items: center;
-    justify-content: space-evenly;
+    justify-content: center;
     border-bottom: 1px solid var(--light-blue);
     text-indent: 25px;
     height: auto;
     padding: 10px;
+    transition: color 0.5s;
 }
 
-.post-list li {
-    font-size: 24px;
-    cursor: pointer;
-    transition: filter 0.1s;
+.post-list li a:link,
+.post-list li a:visited {
+    color: var(--black);
 }
 
-.post-list li:hover {
-    filter: none;
-}
-
-.post-list:hover li {
-    filter: opacity(0.6);
-}
-
-.post-list:hover li:hover {
-    filter: none;
+.post-list li a:hover,
+.post-list li a:active {
+    color: var(--post-title-blue);
 }
 
 .post-title, .post-date {
     font-family: "Abhaya Libre", system-ui;
+}
+
+.post-date {
+    font-size: var(--font-size-lg);
 }
 
 .pagination {
@@ -288,11 +297,71 @@ svg {
     color: var(--post-title-blue);
 }
 
-.post {
+/* End of Post List 📍 Homepage */
+
+
+/* Post */
+
+.read-post {
+    display: flex;
+    flex-direction: column;
+}
+
+.read-post-header {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    margin: 5rem 0 2rem 0;
+    padding: 1rem;
+    border-bottom: 1px solid var(--light-blue);
+    font-size: 1.8rem;
+}
+
+.read-post-title {
+    margin-left: 15rem;
+    color: var(--post-title-blue);
+    font-weight: 400;
+}
+
+.read-post-date {
+    margin-right: 10rem;
+    color: var(--post-title-blue);
+    font-weight: 400;
+}
+
+.read-post-body {
+    display: flex;
+    position: relative;
+    width: 100%;
+    margin: 1rem 0 4rem 0;
+    z-index: 1;
+}
+
+.read-post-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url(../images/notebook-lines.svg);
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-position-y: 2%;
+    opacity: .5;
+    z-index: -1;
+}
+
+.post-body {
+    height: auto;
+    margin: 0 10rem 2rem 18rem;
+    font-size: var(--font-size-lg);
     white-space: pre-wrap;
 }
 
-/* End of Posts */
+/* End of Post */
 
 
 /* Footer */
@@ -302,7 +371,7 @@ svg {
     background-color: var(--light-gray);
     font-family: "Federo", system-ui;
     font-size: 1.5rem;
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.3rem;
     text-align: center;
 }
 
