@@ -177,14 +177,9 @@ img {
     fill: var(--light-blue);
 }
 
-.title {
-    font-size: 5rem;
-    margin: 0 95rem 0 3rem;
-}
-
 svg {
-    width: 25px;
-    height: 25px;
+    width: 2.9rem;
+    height: 2.9rem;
 }
 
 /* SearchBar */
@@ -393,7 +388,93 @@ svg {
 
 /* Contact */
 
+.contact {
+    display: flex;
+    flex-direction: column;
+}
 
+.contact-text {
+    width: 100%;
+    margin: 5rem 0 2rem 0;
+    padding-bottom: 1rem;
+    border-bottom: 1px solid var(--light-blue);
+    font-size: 1.8rem;
+}
+
+.contact-title {
+    width: 100%;
+    padding: 0 0 1rem 15rem;
+    border-bottom: 1px solid var(--light-blue);
+    color: var(--black);
+    font-weight: 400;
+}
+
+.contact-subtitle {
+    padding: 1.5rem 0 .3rem 20rem;
+    font-size: 2.3rem;
+}
+
+.contact-icons-wrapper {
+    display: flex;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 2rem 0;
+    margin-bottom: 4rem;
+    z-index: 1;
+}
+
+.contact-icons-wrapper::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url(../images/notebook-lines.svg);
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-position-y: 2%;
+    opacity: .5;
+    z-index: -1;
+}
+
+.contact-icons {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+
+.contact-icons li {
+    margin: 0 3rem;
+}
+
+.contact-icons li a svg {
+    height: 9rem;
+    width: 9rem;
+}
+
+.contact-icons .mobile svg {
+    height: 10rem;
+    width: 10rem;
+}
+
+.contact-icons .email svg {
+    height: 11rem;
+    width: 11rem;
+}
+
+.contact-icons .pinterest svg,
+.contact-icons .tumblr svg {
+    height: 9.5rem;
+    width: 9.5rem;
+}
+
+.tumblr {
+    fill: #081a34;
+}
 
 /* End of Contact */
 
