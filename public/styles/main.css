@@ -117,7 +117,7 @@ img {
     gap: 0.3rem;
     align-items: center;
     border: 0;
-    padding: 0 3rem 0 0;
+    padding: 0 3.3rem 0 0;
     background: none;
     border-radius: var(--border-radius);
 }
@@ -381,7 +381,47 @@ svg {
 
 /* About Me */
 
+.about {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin: 5rem 0 2rem 0;
+    padding-bottom: 4rem;
+    font-size: 1.8rem;
+}
 
+.about-title {
+    width: 100%;
+    padding: 0 0 1rem 15rem;
+    border-bottom: 1px solid var(--light-blue);
+    color: var(--black);
+    font-weight: 400;
+}
+
+.about-body {
+    position: relative;
+    width: 100%;
+    padding: .7rem 0 0 15rem;
+    white-space: pre-wrap;
+    font-size: 2.3rem;
+    letter-spacing: .1rem;
+    z-index: 1;
+}
+
+.about-body::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    background-image: url(../images/notebook-lines.svg);
+    background-size: cover;
+    background-repeat: repeat-y;
+    background-position-y: 18%;
+    opacity: .5;
+    z-index: -1;
+}
 
 /* End of About Me */
 
