@@ -3,8 +3,8 @@
         <% data.forEach(post => { %>
 
             <li>
-                <a href="/admin-post/<%= post._id %>">
-                <%= post.title %> &nearr;
+                <a href="/admin-post/<%= post._id %>" >
+                    <span class="admin-post-title"> <%= post.title %> &nearr; </span>
                 </a>
             </li>
 

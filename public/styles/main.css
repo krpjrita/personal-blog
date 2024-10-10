@@ -59,12 +59,12 @@ textarea {
 ::placeholder {
     color: var(--post-title-blue);
     opacity: 1;
-  }
+}
   
   /* Edge 12 -18 */
   ::-ms-input-placeholder {
     color: var(--post-title-blue);
-  }
+}
 
 img {
     width: 100%;
@@ -78,7 +78,7 @@ img {
 
 /* Header */
 
-.header-top:before {
+.header-top::before {
     content: "";
     position: absolute;
     top: 0;
@@ -97,7 +97,7 @@ img {
     position: relative;
     z-index: 2;
     width: 100%;
-    height: 35rem;
+    height: 30rem;
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 2fr;
@@ -141,12 +141,13 @@ img {
 
 /* Notebook Red Line */
 
-.header-nav:before {
+.header-nav::before {
     content: "";
     position: absolute;
+    top: 30rem;
+    bottom: 0;
     border-left: 0.2rem solid var(--light-red);
     width: 100%;
-    height: 130%;
     margin-left: 15rem;
     z-index: -2;
 }
@@ -647,22 +648,58 @@ svg {
 
 /* Dashboard */
 
-.admin-title {
+.admin-posts {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    width: 100%;
+    border-top: 1px solid var(--light-blue);
+    font-size: var(--font-size-lg);
+}
+  
+.admin-post-title {
+    cursor: pointer;
+    transition: filter 0.5s;
+    padding: 1rem 0;
+}
+
+.admin-post-title:hover {
+    filter: none;
+}
+
+.admin-posts:hover .admin-post-title {
+    filter: opacity(0.7);
+}
+
+.admin-posts:hover .admin-post-title:hover {
+    filter: none;
+}
+
+.admin-posts li a {
+    display: flex;
     align-items: center;
-  }
-  
-  .admin-posts {
-    padding: 0;
-    margin: 0;
-  }
-  
-  .admin-post-controls form {
+    justify-content: center;
+    border-bottom: 1px solid var(--light-blue);
+    height: auto;
+    transition: color 0.5s;
+}
+
+.admin-posts li a:link,
+.admin-posts li a:visited {
+    color: var(--black);
+}
+
+.admin-posts li a:hover,
+.admin-posts li a:active {
+    color: var(--light-red);
+}
+
+
+.admin-post-controls form {
     display: inline-block;
-  }
+}
   
-  .admin-post-controls .btn  {
+.admin-post-controls .btn  {
     display: inline-block;
     background-color: var(--black);
     color: var(--gray-light);
@@ -671,13 +708,7 @@ svg {
     font-size: .8rem;
     padding: 4px 8px;
     line-height: 2;
-  }
-  
-  .admin-posts li {
-    display: flex;
-    justify-content: space-between;
-    padding: 10px 0;
-  }
+}
 
 /* End of Dashboard */
 
